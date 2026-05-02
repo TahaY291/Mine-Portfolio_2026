@@ -20,22 +20,22 @@ export default function IntroCard() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap');
 
-        .intro-bubble-card {
+        .intro-card {
           position: relative;
-          padding: 28px 26px;
+          width: 100%;
           height: 100%;
-          min-height: 360px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+          padding: 26px 24px;
           border-radius: 22px;
           font-family: 'Inter', sans-serif;
           overflow: hidden;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
 
           background: rgba(14, 14, 16, 0.85);
           backdrop-filter: blur(32px) saturate(1.8) brightness(0.8);
           -webkit-backdrop-filter: blur(32px) saturate(1.8) brightness(0.8);
-
           border: 1px solid rgba(255, 255, 255, 0.08);
           box-shadow:
             0 16px 56px rgba(0, 0, 0, 0.80),
@@ -44,14 +44,11 @@ export default function IntroCard() {
             inset 0 -1px 0 rgba(255, 255, 255, 0.03);
         }
 
-        /* Top-left white reflection blob */
-        .intro-bubble-card::before {
+        .intro-card::before {
           content: "";
           position: absolute;
-          top: -55px;
-          left: -40px;
-          width: 260px;
-          height: 160px;
+          top: -55px; left: -40px;
+          width: 260px; height: 160px;
           border-radius: 50%;
           background: radial-gradient(ellipse at 40% 40%,
             rgba(255,255,255,0.16) 0%,
@@ -61,35 +58,12 @@ export default function IntroCard() {
           z-index: 0;
         }
 
-        /* Bottom-right ambient */
-        .intro-bubble-card::after {
-          content: "";
-          position: absolute;
-          bottom: -40px;
-          right: -30px;
-          width: 180px;
-          height: 120px;
-          border-radius: 50%;
-          background: radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, transparent 70%);
-          pointer-events: none;
-          z-index: 0;
-        }
+        .intro-card > * { position: relative; z-index: 1; }
 
-        .intro-bubble-card > * { position: relative; z-index: 1; }
-
-        .intro-icon-box {
-          width: 40px;
-          height: 40px;
-          border-radius: 11px;
+        .intro-top-row {
           display: flex;
+          justify-content: space-between;
           align-items: center;
-          justify-content: center;
-          font-size: 18px;
-          background: rgba(255, 255, 255, 0.07);
-          border: 1px solid rgba(255, 255, 255, 0.10);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.18),
-            0 2px 10px rgba(0,0,0,0.4);
         }
 
         .intro-available {
@@ -99,14 +73,13 @@ export default function IntroCard() {
         }
 
         .intro-dot {
-          width: 7px;
-          height: 7px;
+          width: 7px; height: 7px;
           border-radius: 50%;
           background: #4ade80;
-          animation: introPulse 2s ease-in-out infinite;
+          animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes introPulse {
+        @keyframes pulse {
           0%, 100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.5; transform: scale(0.85); }
         }
@@ -124,24 +97,23 @@ export default function IntroCard() {
           letter-spacing: 0.14em;
           color: rgba(255,255,255,0.32);
           text-transform: uppercase;
-          margin-bottom: 8px;
         }
 
         .intro-name {
-          font-size: 36px;
+          font-size: 34px;
           font-weight: 800;
           line-height: 1.1;
           letter-spacing: -0.025em;
           color: rgba(255,255,255,0.93);
-          margin: 0 0 8px 0;
+          margin: 8px 0 6px;
         }
 
         .intro-role-bar {
           height: 22px;
           overflow: hidden;
-          margin-bottom: 14px;
           border-left: 2px solid rgba(110,181,255,0.6);
           padding-left: 10px;
+          margin-bottom: 12px;
         }
 
         .intro-role-text {
@@ -153,36 +125,55 @@ export default function IntroCard() {
         }
 
         .intro-bio {
-          font-size: 13px;
+          font-size: 12.5px;
           line-height: 1.75;
           color: rgba(255,255,255,0.38);
+        }
+
+        .intro-stats {
+          display: flex;
+          gap: 20px;
+          padding: 12px 0;
+          border-top: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          margin: 14px 0;
+        }
+
+        .intro-stat-value {
+          font-size: 16px;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+        }
+
+        .intro-stat-label {
+          font-family: 'DM Mono', monospace;
+          font-size: 10px;
+          color: rgba(255,255,255,0.3);
+          margin-top: 1px;
         }
 
         .intro-footer {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-top: 22px;
         }
 
         .intro-avatar {
-          width: 42px;
-          height: 42px;
+          width: 38px; height: 38px;
           border-radius: 50%;
           background: linear-gradient(135deg, #6eb5ff, #e879f9);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 700;
           color: #fff;
           border: 1px solid rgba(255,255,255,0.12);
-          box-shadow: 0 4px 14px rgba(0,0,0,0.45);
         }
 
         .intro-socials {
           display: flex;
-          gap: 7px;
+          gap: 6px;
         }
 
         .intro-social-pill {
@@ -196,9 +187,8 @@ export default function IntroCard() {
           color: rgba(255,255,255,0.42);
           background: rgba(255,255,255,0.05);
           border: 1px solid rgba(255,255,255,0.08);
-          letter-spacing: 0.02em;
           cursor: pointer;
-          transition: background 0.15s ease, color 0.15s ease;
+          transition: background 0.15s, color 0.15s;
         }
 
         .intro-social-pill:hover {
@@ -207,36 +197,47 @@ export default function IntroCard() {
         }
       `}</style>
 
-      <div className="intro-bubble-card">
-        {/* Top row */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div className="intro-icon-box">👤</div>
+      <div className="intro-card">
+        <div className="intro-top-row">
+          <span className="intro-category">Portfolio</span>
           <div className="intro-available">
             <span className="intro-dot" />
             <span className="intro-available-label">Available</span>
           </div>
         </div>
 
-        {/* Content */}
-        <div style={{ marginTop: 20 }}>
-          <div className="intro-category">Portfolio</div>
+        <div>
           <h1 className="intro-name">Alex Mercer</h1>
-
           <div className="intro-role-bar">
-            <span className="intro-role-text" style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(-4px)",
-            }}>
+            <span
+              className="intro-role-text"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? "translateY(0)" : "translateY(-4px)",
+              }}
+            >
               {roles[roleIdx]}
             </span>
           </div>
-
           <p className="intro-bio">
-            Building products at the intersection of elegant design and performant engineering. 6 years crafting digital experiences.
+            Building products at the intersection of elegant design and performant engineering.
           </p>
         </div>
 
-        {/* Footer */}
+        {/* Inline stats — replaces StatsCard */}
+        <div className="intro-stats">
+          {[
+            { value: "32+", label: "Projects", color: "var(--accent-blue)" },
+            { value: "6yr", label: "Experience", color: "var(--accent-green)" },
+            { value: "18k", label: "GitHub Stars", color: "var(--accent-amber)" },
+          ].map((s) => (
+            <div key={s.label}>
+              <div className="intro-stat-value" style={{ color: s.color }}>{s.value}</div>
+              <div className="intro-stat-label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+
         <div className="intro-footer">
           <div className="intro-avatar">A</div>
           <div className="intro-socials">

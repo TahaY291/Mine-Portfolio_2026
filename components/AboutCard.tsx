@@ -9,7 +9,7 @@ export default function AboutCard({ onClick }: { onClick: () => void }) {
         .about-bubble-card {
           position: relative;
           padding: 22px 20px;
-          min-height: 160px;
+          height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
