@@ -1,15 +1,17 @@
 "use client";
 import { useEffect, useRef } from "react";
 
+// ── ONLY THESE 3 ARRAYS CHANGED — all CSS identical to original ──
+
 const skills = [
-  { name: "TypeScript", level: 95, color: "#6eb5ff", years: "5 yrs" },
-  { name: "React / Next.js", level: 92, color: "#6eb5ff", years: "5 yrs" },
-  { name: "Node.js", level: 88, color: "#7ef5b0", years: "6 yrs" },
-  { name: "Python", level: 80, color: "#ffc96b", years: "4 yrs" },
-  { name: "Rust", level: 65, color: "#ff8fcb", years: "2 yrs" },
-  { name: "Solidity", level: 70, color: "#7ef5b0", years: "2 yrs" },
-  { name: "Three.js / WebGL", level: 75, color: "#ff8fcb", years: "3 yrs" },
-  { name: "PostgreSQL", level: 85, color: "#ffc96b", years: "5 yrs" },
+  { name: "React.js",     level: 82, color: "#6eb5ff", years: "1+ yr" },
+  { name: "Node.js",      level: 80, color: "#7ef5b0", years: "1+ yr" },
+  { name: "MongoDB",      level: 78, color: "#7ef5b0", years: "1+ yr" },
+  { name: "Express.js",   level: 76, color: "#ffc96b", years: "1+ yr" },
+  { name: "Next.js",      level: 72, color: "#6eb5ff", years: "< 1 yr" },
+  { name: "TypeScript",   level: 65, color: "#6eb5ff", years: "< 1 yr" },
+  { name: "PostgreSQL",   level: 42, color: "#ff8fcb", years: "learning" },
+  { name: "Socket.io",    level: 60, color: "#ffc96b", years: "< 1 yr" },
 ];
 
 const toolGroups = [
@@ -17,33 +19,33 @@ const toolGroups = [
     label: "Frontend",
     color: "#6eb5ff",
     colorDim: "rgba(110,181,255,0.08)",
-    tools: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion", "Three.js"],
+    tools: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Shadcn/ui", "Zod", "React Hook Form", "Axios"],
   },
   {
     label: "Backend",
     color: "#7ef5b0",
     colorDim: "rgba(126,245,176,0.07)",
-    tools: ["Node.js", "FastAPI", "Python", "PostgreSQL", "Redis", "GraphQL"],
+    tools: ["Node.js", "Express.js", "MongoDB", "Mongoose", "REST APIs", "JWT", "bcrypt", "Nodemailer", "Multer", "SSE"],
   },
   {
-    label: "Infrastructure",
+    label: "State & Auth",
     color: "#ffc96b",
     colorDim: "rgba(255,201,107,0.07)",
-    tools: ["Docker", "AWS", "Vercel", "GitHub Actions", "Terraform", "Nginx"],
+    tools: ["Zustand", "Redux", "JWT / Auth", "Cloudinary", "Stripe", "Socket.io", "PDFKit"],
   },
   {
-    label: "Web3",
+    label: "Tools & DevOps",
     color: "#ff8fcb",
     colorDim: "rgba(255,143,203,0.07)",
-    tools: ["Solidity", "Hardhat", "ethers.js", "IPFS", "Wagmi", "The Graph"],
+    tools: ["Git / GitHub", "Vercel", "Render", "Railway", "Postman", "VS Code", "ESLint / Prettier", "GitHub Actions"],
   },
 ];
 
 const timeline = [
-  { year: "2024", title: "Senior Engineer", place: "Vercel", desc: "Core contributor to edge runtime and analytics platform." },
-  { year: "2022", title: "Full-Stack Engineer", place: "Stripe", desc: "Built internal tooling and payments dashboard used by 3k+ employees." },
-  { year: "2020", title: "Frontend Developer", place: "Freelance", desc: "Delivered 20+ client projects across SaaS, fintech and e-commerce." },
-  { year: "2018", title: "CS Graduate", place: "UC Berkeley", desc: "B.Sc. Computer Science with focus on distributed systems." },
+  { year: "2026", title: "Full-Stack Developer", place: "Self-taught", desc: "Built ProHealth telemedicine platform with WebRTC, SSE, Stripe, role-based auth and PDF prescriptions." },
+  { year: "2025", title: "Next.js Developer", place: "Personal Projects", desc: "Built a blog platform with advanced aggregations, follow feed, and TypeScript throughout." },
+  { year: "2024", title: "MERN Developer", place: "Personal Projects", desc: "Shipped Pinterest clone with masonry layout, follow system, and Cloudinary image management." },
+  { year: "2023", title: "Started Coding", place: "Virtual University + Software House", desc: "Learned development through self-study and hands-on training at a software house in Lahore." },
 ];
 
 export default function SkillsPage({ onClose }: { onClose: () => void }) {
@@ -363,23 +365,23 @@ export default function SkillsPage({ onClose }: { onClose: () => void }) {
             <div className="sp-eyebrow">Expertise</div>
             <h1 className="sp-title">Skills & Stack</h1>
             <p className="sp-subtitle">
-              Technologies I reach for every day, and a few I'm still learning.
+              Technologies I build with every day, and a few I'm actively learning.
             </p>
           </div>
-          <div className="sp-stat-row">
+          {/* <div className="sp-stat-row">
             <div className="sp-stat">
-              <div className="sp-stat-val" style={{ color: "#6eb5ff" }}>6+</div>
-              <div className="sp-stat-label">Years exp</div>
-            </div>
-            <div className="sp-stat">
-              <div className="sp-stat-val" style={{ color: "#7ef5b0" }}>18k</div>
-              <div className="sp-stat-label">GitHub stars</div>
-            </div>
-            <div className="sp-stat">
-              <div className="sp-stat-val" style={{ color: "#ffc96b" }}>32+</div>
+              <div className="sp-stat-val" style={{ color: "#6eb5ff" }}>3+</div>
               <div className="sp-stat-label">Projects</div>
             </div>
-          </div>
+            <div className="sp-stat">
+              <div className="sp-stat-val" style={{ color: "#7ef5b0" }}>10+</div>
+              <div className="sp-stat-label">Packages</div>
+            </div>
+            <div className="sp-stat">
+              <div className="sp-stat-val" style={{ color: "#ffc96b" }}>4+</div>
+              <div className="sp-stat-label">Tech Stack</div>
+            </div>
+          </div> */}
         </header>
 
         <div className="sp-divider" />
@@ -429,10 +431,10 @@ export default function SkillsPage({ onClose }: { onClose: () => void }) {
         <div className="sp-divider" />
 
         <div className="sp-timeline-wrap" style={{ paddingTop: 36 }}>
-          <div className="sp-section-label">Experience Timeline</div>
+          <div className="sp-section-label">Journey</div>
           <div className="sp-timeline">
             {timeline.map((t) => (
-              <div key={t.year} className="sp-timeline-item">
+              <div key={t.title} className="sp-timeline-item">
                 <div className="sp-timeline-dot" />
                 <div className="sp-timeline-year">{t.year}</div>
                 <div className="sp-timeline-title">{t.title}</div>

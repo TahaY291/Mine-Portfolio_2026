@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 
 export default function ContactCard() {
   const [hovered, setHovered] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState<"" | "sending" | "done" | "error">("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -16,10 +16,37 @@ export default function ContactCard() {
     timerRef.current = setTimeout(() => setHovered(false), 280);
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!name || !email) return;
-    setSent(true);
-    setTimeout(() => { setSent(false); setName(""); setEmail(""); setHovered(false); }, 2400);
+    setSent("sending");
+
+    const formData = new FormData();
+    formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_KEY!);
+    formData.append("name", name);
+    formData.append("email", email);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSent("done");
+        setTimeout(() => {
+          setSent("");
+          setName("");
+          setEmail("");
+          setHovered(false);
+        }, 2400);
+      } else {
+        setSent("error");
+        setTimeout(() => setSent(""), 2400);
+      }
+    } catch {
+      setSent("error");
+      setTimeout(() => setSent(""), 2400);
+    }
   };
 
   return (
@@ -30,10 +57,10 @@ export default function ContactCard() {
         .contact-card-outer {
           position: relative;
           height: 100%;
+          margin-bottom: 5px;
           border-radius: 22px;
           overflow: hidden;
           cursor: default;
-
           background: rgba(14, 14, 16, 0.85);
           backdrop-filter: blur(32px) saturate(1.8) brightness(0.8);
           -webkit-backdrop-filter: blur(32px) saturate(1.8) brightness(0.8);
@@ -151,7 +178,6 @@ export default function ContactCard() {
           color: rgba(110,181,255,0.55);
         }
 
-        /* Hover form layer */
         .contact-form-layer {
           position: absolute;
           inset: 0;
@@ -243,6 +269,17 @@ export default function ContactCard() {
           color: #7ef5b0;
         }
 
+        .contact-send-btn.error {
+          background: rgba(255,100,100,0.1);
+          border-color: rgba(255,100,100,0.3);
+          color: #ff8080;
+        }
+
+        .contact-send-btn.sending {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
         .contact-form-footer {
           font-family: 'DM Mono', monospace;
           font-size: 9px;
@@ -256,22 +293,20 @@ export default function ContactCard() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Default state */}
         <div className={`contact-default-layer${hovered ? " hidden" : ""}`}>
           <div>
             <div className="contact-label">Get in Touch</div>
             <h3 className="contact-title">Contact</h3>
             <p className="contact-desc">
-              Open to collaborations, freelance, or just a good convo.
+              Got something in mind? Drop a message.
             </p>
           </div>
           <div className="contact-email-pill">
-            <span className="contact-email-text">hello@alexmercer.dev</span>
+            <span className="contact-email-text">mtahayasin07@gmail.com</span>
             <span className="contact-email-arrow">↗</span>
           </div>
         </div>
 
-        {/* Hover form */}
         <div className={`contact-form-layer${hovered ? " visible" : ""}`}>
           <div className="contact-form-title">Say hello 👋</div>
           <div className="contact-form-hint">Hover out to dismiss</div>
@@ -289,10 +324,11 @@ export default function ContactCard() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <button
-            className={`contact-send-btn${sent ? " success" : ""}`}
+            className={`contact-send-btn${sent === "done" ? " success" : sent === "error" ? " error" : sent === "sending" ? " sending" : ""}`}
             onClick={handleSend}
+            disabled={sent === "sending"}
           >
-            {sent ? "Message sent ✓" : "Send message →"}
+            {sent === "sending" ? "Sending..." : sent === "done" ? "Message sent ✓" : sent === "error" ? "Failed — try again" : "Send message →"}
           </button>
           <div className="contact-form-footer">No spam. Just a conversation.</div>
         </div>

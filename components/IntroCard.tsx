@@ -1,35 +1,55 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const roles = [
+  "MERN Stack Developer",
+  "Next.js Developer",
   "Full-Stack Developer",
-  "UI/UX Craftsman",
-  "Creative Coder",
-  "Open Source Builder",
-];
-
-const stats = [
-  { target: 32, suffix: "+", label: "Projects", color: "#6eb5ff" },
-  { target: 6,  suffix: "yr", label: "Experience", color: "#7ef5b0" },
-  { target: 18, suffix: "k", label: "GitHub Stars", color: "#ffc96b" },
+  "TypeScript Enthusiast",
 ];
 
 const socials = [
-  { label: "GH", color: "#e8eaea", href: "https://github.com" },
-  { label: "LI", color: "#6eb5ff", href: "https://linkedin.com" },
-  { label: "TW", color: "#5bc0f8", href: "https://twitter.com" },
+  {
+    label: "GitHub",
+    href: "https://github.com/TahaY291",
+    color: "rgba(255,255,255,0.75)",
+    borderColor: "rgba(255,255,255,0.12)",
+    bg: "rgba(255,255,255,0.06)",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+      </svg>
+    ),
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/mtahayasin/",
+    color: "rgba(110,181,255,0.90)",
+    borderColor: "rgba(110,181,255,0.28)",
+    bg: "rgba(110,181,255,0.10)",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </svg>
+    ),
+  },
 ];
 
-/* ── Typewriter hook ── */
-function useTypewriter(words: string[], typingSpeed = 68, deletingSpeed = 38, pauseMs = 1600) {
+function useTypewriter(
+  words: string[],
+  typingSpeed = 68,
+  deletingSpeed = 38,
+  pauseMs = 1600
+) {
   const [displayed, setDisplayed] = useState("");
-  const [wordIdx, setWordIdx]     = useState(0);
-  const [phase, setPhase]         = useState<"typing" | "pausing" | "deleting">("typing");
-  const [charIdx, setCharIdx]     = useState(0);
+  const [wordIdx, setWordIdx] = useState(0);
+  const [phase, setPhase] = useState<"typing" | "deleting">("typing");
+  const [charIdx, setCharIdx] = useState(0);
 
   useEffect(() => {
     const word = words[wordIdx];
-
     if (phase === "typing") {
       if (charIdx < word.length) {
         const t = setTimeout(() => {
@@ -42,7 +62,6 @@ function useTypewriter(words: string[], typingSpeed = 68, deletingSpeed = 38, pa
         return () => clearTimeout(t);
       }
     }
-
     if (phase === "deleting") {
       if (charIdx > 0) {
         const t = setTimeout(() => {
@@ -60,38 +79,8 @@ function useTypewriter(words: string[], typingSpeed = 68, deletingSpeed = 38, pa
   return displayed;
 }
 
-/* ── Count-up hook ── */
-function useCountUp(target: number, duration = 1400, delay = 0, active = false) {
-  const [val, setVal] = useState(0);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (!active || started.current) return;
-    started.current = true;
-    const t = setTimeout(() => {
-      const start = performance.now();
-      const tick = (now: number) => {
-        const p = Math.min((now - start) / duration, 1);
-        const ease = 1 - Math.pow(1 - p, 3);
-        setVal(Math.round(ease * target));
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    }, delay);
-    return () => clearTimeout(t);
-  }, [active, target, duration, delay]);
-
-  return val;
-}
-
-export default function IntroCard({ statsActive = true }: { statsActive?: boolean }) {
+export default function IntroCard() {
   const roleText = useTypewriter(roles);
-
-  const counts = [
-    useCountUp(stats[0].target, 1200, 200,  statsActive),
-    useCountUp(stats[1].target,  900, 400,  statsActive),
-    useCountUp(stats[2].target, 1400, 300,  statsActive),
-  ];
 
   return (
     <>
@@ -102,23 +91,21 @@ export default function IntroCard({ statsActive = true }: { statsActive?: boolea
           position: relative;
           width: 100%;
           height: 100%;
-          padding: 26px 24px;
+          padding: 22px 22px 22px;
           border-radius: 22px;
           font-family: 'Inter', sans-serif;
           overflow: hidden;
           box-sizing: border-box;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
-
-          background: rgba(14, 14, 16, 0.85);
+          background: rgba(14, 14, 16, 0.88);
           backdrop-filter: blur(32px) saturate(1.8) brightness(0.8);
           -webkit-backdrop-filter: blur(32px) saturate(1.8) brightness(0.8);
-          border: 1px solid rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.12);
           box-shadow:
             0 16px 56px rgba(0,0,0,0.80),
             0 4px 18px rgba(0,0,0,0.6),
-            inset 0 1.5px 0 rgba(255,255,255,0.20),
+            inset 0 1.5px 0 rgba(255,255,255,0.18),
             inset 0 -1px 0 rgba(255,255,255,0.03);
         }
 
@@ -129,73 +116,64 @@ export default function IntroCard({ statsActive = true }: { statsActive?: boolea
           width: 260px; height: 160px;
           border-radius: 50%;
           background: radial-gradient(ellipse at 40% 40%,
-            rgba(255,255,255,0.16) 0%,
-            rgba(255,255,255,0.06) 35%,
-            transparent 65%);
-          pointer-events: none;
-          z-index: 0;
+            rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 35%, transparent 65%);
+          pointer-events: none; z-index: 0;
         }
 
         .intro-card > * { position: relative; z-index: 1; }
 
-        /* top row */
         .intro-top-row {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          flex-shrink: 0;
         }
 
-        .intro-available {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-        }
+        .intro-available { display: flex; align-items: center; gap: 6px; }
 
         .intro-dot {
-          width: 7px; height: 7px;
-          border-radius: 50%;
-          background: #4ade80;
+          width: 7px; height: 7px; border-radius: 50%; background: #4ade80;
           animation: introPulse 2s ease-in-out infinite;
         }
 
         @keyframes introPulse {
-          0%,100% { opacity:1; transform:scale(1); }
-          50%      { opacity:0.4; transform:scale(0.8); }
+          0%,100%{ opacity:1; transform:scale(1); }
+          50%{ opacity:0.4; transform:scale(0.8); }
         }
 
-        .intro-available-label {
-          font-family: 'DM Mono', monospace;
-          font-size: 11px;
-          color: #4ade80;
-        }
+        .intro-available-label { font-family: 'DM Mono', monospace; font-size: 11px; color: #4ade80; }
 
         .intro-category {
           font-family: 'DM Mono', monospace;
-          font-size: 10px;
-          font-weight: 500;
+          font-size: 10px; font-weight: 500;
           letter-spacing: 0.14em;
           color: rgba(255,255,255,0.28);
           text-transform: uppercase;
         }
 
-        /* name */
+        .intro-body {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 10px;
+          padding: 32px 0 28px;
+        }
+
         .intro-name {
-          font-size: 34px;
+          font-size: clamp(22px, 3vw, 32px);
           font-weight: 800;
           line-height: 1.1;
           letter-spacing: -0.025em;
           color: rgba(255,255,255,0.93);
-          margin: 10px 0 8px;
+          margin: 0;
         }
 
-        /* typewriter */
         .intro-role-bar {
           display: flex;
           align-items: center;
-          gap: 0;
           border-left: 2px solid rgba(110,181,255,0.5);
           padding-left: 10px;
-          margin-bottom: 12px;
           height: 22px;
           overflow: hidden;
         }
@@ -209,8 +187,7 @@ export default function IntroCard({ statsActive = true }: { statsActive?: boolea
 
         .intro-cursor {
           display: inline-block;
-          width: 2px;
-          height: 13px;
+          width: 2px; height: 13px;
           background: rgba(110,181,255,0.75);
           margin-left: 2px;
           border-radius: 1px;
@@ -218,94 +195,43 @@ export default function IntroCard({ statsActive = true }: { statsActive?: boolea
           flex-shrink: 0;
         }
 
-        @keyframes cursorBlink {
-          0%,100% { opacity: 1; }
-          50%      { opacity: 0; }
-        }
+        @keyframes cursorBlink { 0%,100%{ opacity:1; } 50%{ opacity:0; } }
 
-        /* bio */
         .intro-bio {
-          font-size: 12.5px;
-          line-height: 1.75;
-          color: rgba(255,255,255,0.36);
-        }
-
-        /* stats */
-        .intro-stats {
-          display: flex;
-          gap: 20px;
-          padding: 12px 0;
-          border-top: 1px solid rgba(255,255,255,0.06);
-          border-bottom: 1px solid rgba(255,255,255,0.06);
-          margin: 14px 0;
-        }
-
-        .intro-stat-value {
-          font-size: 17px;
-          font-weight: 800;
-          letter-spacing: -0.03em;
-          font-variant-numeric: tabular-nums;
-          transition: color 0.2s;
-        }
-
-        .intro-stat-label {
-          font-family: 'DM Mono', monospace;
-          font-size: 10px;
-          color: rgba(255,255,255,0.28);
-          margin-top: 1px;
-        }
-
-        /* footer */
-        .intro-footer {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .intro-avatar {
-          width: 38px; height: 38px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #6eb5ff, #e879f9);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 14px;
-          font-weight: 700;
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.12);
-          flex-shrink: 0;
+          font-size: 13.5px;
+          line-height: 1.78;
+          color: rgba(255,255,255,0.54);
+          margin: 4px 0 0;
         }
 
         .intro-socials {
           display: flex;
-          gap: 6px;
+          gap: 10px;
+          margin-top: 10px;
         }
 
-        .intro-social-pill {
+        .intro-social-btn {
           display: inline-flex;
           align-items: center;
-          padding: 4px 11px;
+          gap: 7px;
+          padding: 9px 16px;
           border-radius: 999px;
           font-family: 'DM Mono', monospace;
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 500;
-          color: rgba(255,255,255,0.35);
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
-          cursor: pointer;
-          transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
           text-decoration: none;
+          cursor: pointer;
+          transition: opacity 0.2s, transform 0.15s;
         }
 
-        .intro-social-pill:hover {
-          background: rgba(255,255,255,0.08);
+        .intro-social-btn:hover {
+          opacity: 0.8;
           transform: translateY(-2px);
         }
       `}</style>
 
       <div className="intro-card">
 
-        {/* Top row */}
         <div className="intro-top-row">
           <span className="intro-category">Portfolio</span>
           <div className="intro-available">
@@ -314,9 +240,9 @@ export default function IntroCard({ statsActive = true }: { statsActive?: boolea
           </div>
         </div>
 
-        {/* Name + role */}
-        <div>
-          <h1 className="intro-name">Alex Mercer</h1>
+        <div className="intro-body">
+
+          <h1 className="intro-name">Taha Yasin</h1>
 
           <div className="intro-role-bar">
             <span className="intro-role-text">{roleText}</span>
@@ -324,25 +250,10 @@ export default function IntroCard({ statsActive = true }: { statsActive?: boolea
           </div>
 
           <p className="intro-bio">
-            Building products at the intersection of elegant design and performant engineering.
+            I build complete, production-ready web apps — real-time video platforms,
+            marketplaces, and content systems. Clean code and features that actually work.
           </p>
-        </div>
 
-        {/* Animated stats */}
-        <div className="intro-stats">
-          {stats.map((s, i) => (
-            <div key={s.label}>
-              <div className="intro-stat-value" style={{ color: s.color }}>
-                {counts[i]}{s.suffix}
-              </div>
-              <div className="intro-stat-label">{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div className="intro-footer">
-          <div className="intro-avatar">A</div>
           <div className="intro-socials">
             {socials.map((s) => (
               <a
@@ -350,23 +261,19 @@ export default function IntroCard({ statsActive = true }: { statsActive?: boolea
                 href={s.href}
                 target="_blank"
                 rel="noreferrer"
-                className="intro-social-pill"
-                style={{ ["--hover-color" as any]: s.color }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = s.color;
-                  (e.currentTarget as HTMLElement).style.borderColor = s.color + "44";
-                  (e.currentTarget as HTMLElement).style.background = s.color + "12";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = "";
-                  (e.currentTarget as HTMLElement).style.borderColor = "";
-                  (e.currentTarget as HTMLElement).style.background = "";
+                className="intro-social-btn"
+                style={{
+                  color: s.color,
+                  background: s.bg,
+                  border: `1px solid ${s.borderColor}`,
                 }}
               >
+                {s.icon}
                 {s.label}
               </a>
             ))}
           </div>
+
         </div>
 
       </div>

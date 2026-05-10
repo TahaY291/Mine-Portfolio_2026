@@ -4,7 +4,7 @@ import './globals.css'
 
 
 export const metadata: Metadata = {
-  title: "Portfolio — Creative Developer",
+  title: "Muhmmad Taha Yasin | Portfolio",
   description: "Personal portfolio showcasing projects and skills",
 };
 

@@ -3,47 +3,53 @@ import { useEffect } from "react";
 
 const values = [
   {
-    emoji: "⚡",
-    title: "Speed of thought",
-    desc: "I believe great software should feel instant. Every 100ms shaved off matters.",
+    emoji: "🔥",
+    title: "Build to learn",
+    desc: "Every project teaches me something real. I built a full telemedicine platform just to understand WebRTC.",
     color: "#6eb5ff",
     colorDim: "rgba(110,181,255,0.08)",
   },
   {
-    emoji: "🎨",
-    title: "Craft over output",
-    desc: "Shipping fast is good. Shipping something beautiful and maintainable is better.",
+    emoji: "⚡",
+    title: "Ship real things",
+    desc: "No tutorial projects. Every app I build has real features — auth, payments, real-time, PDFs.",
     color: "#ffc96b",
     colorDim: "rgba(255,201,107,0.08)",
   },
   {
-    emoji: "🌿",
-    title: "Always learning",
-    desc: "I pick up a new language or paradigm every year. Rust in 2023. Solidity in 2022.",
+    emoji: "🌱",
+    title: "Always growing",
+    desc: "Started with MERN, added Next.js and TypeScript, now learning PostgreSQL. Never stopping.",
     color: "#7ef5b0",
     colorDim: "rgba(126,245,176,0.07)",
   },
   {
-    emoji: "🤝",
-    title: "Open by default",
-    desc: "18k GitHub stars because I ship everything in the open. Knowledge compounds.",
+    emoji: "💪",
+    title: "Disciplined by nature",
+    desc: "Gained 12kg of muscle in 6 months through consistency. I bring that same discipline to code.",
     color: "#ff8fcb",
     colorDim: "rgba(255,143,203,0.08)",
   },
 ];
 
 const facts = [
-  { label: "Location", value: "San Francisco, CA" },
-  { label: "Available", value: "Yes — freelance & full-time" },
-  { label: "Time zone", value: "PST (UTC-8)" },
-  { label: "Languages", value: "English, Spanish (B2)" },
-  { label: "Education", value: "B.Sc. CS — UC Berkeley" },
-  { label: "Prev. companies", value: "Stripe, Vercel" },
+  { label: "Location",  value: "Toba Tek Singh, Pakistan" },
+  { label: "Available", value: "Remote & Local — Open now" },
+  { label: "Time zone", value: "PKT (UTC+5)" },
+  { label: "Education", value: "BS Software Eng — Virtual University" },
+  { label: "Status",    value: "Final semester" },
+  { label: "Email",     value: "mtahayasin07@gmail.com" },
 ];
 
-const interests = ["☕ Specialty coffee", "🎸 Guitar (post-rock)", "🏔 Trail running", "📚 Philosophy of mind", "🎮 Indie game dev", "🎧 Electronic music production"];
+const interests = [
+  "🏏 Cricket",
+  "🏸 Badminton",
+  "💪 Bodybuilding (+12kg in 6 months)",
+  "🎮 Video games",
+  "📖 Deep thinker & life learner",
+];
 
-export default function AboutPage({ onClose }: { onClose: () => void }) {
+export default function AboutPage({ onClose }: { onClose: (e: React.MouseEvent) => void }) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
@@ -353,7 +359,7 @@ export default function AboutPage({ onClose }: { onClose: () => void }) {
 
         <div className="ap-hero">
           <div className="ap-avatar-wrap">
-            <div className="ap-avatar">AM</div>
+            <div className="ap-avatar">MTY</div>
             <div className="ap-status">
               <span className="ap-status-dot" />
               Available
@@ -361,12 +367,12 @@ export default function AboutPage({ onClose }: { onClose: () => void }) {
           </div>
           <div className="ap-hero-content">
             <div className="ap-eyebrow">Who I Am</div>
-            <h1 className="ap-title">About Alex</h1>
+            <h1 className="ap-title">About Taha</h1>
             <p className="ap-bio">
-              I'm a <strong>full-stack developer</strong> based in San Francisco with 6 years of experience building products that sit at the intersection of <strong>elegant design</strong> and <strong>performant engineering</strong>.
+              I'm a <strong>self-taught MERN stack developer</strong> based in Pakistan, building complete production-ready web apps with <strong>real features</strong> that actually work.
             </p>
             <p className="ap-bio" style={{ marginTop: -8 }}>
-              Previously at <strong>Stripe</strong> (payments tooling) and <strong>Vercel</strong> (edge runtime). Now I work independently on ambitious products — and I'm always open to the right full-time role.
+              From <strong>WebRTC video consultations</strong> to Pinterest-style apps and Next.js blogs — I build things end to end. Open to <strong>remote &amp; local opportunities</strong>.
             </p>
           </div>
         </div>
@@ -410,9 +416,9 @@ export default function AboutPage({ onClose }: { onClose: () => void }) {
 
         <div className="ap-cta-strip">
           <div className="ap-cta-text">
-            <strong>Let's build something together.</strong> I'm currently available for freelance projects and open to full-time senior roles.
+            <strong>Let's build something together.</strong> Open to junior/mid roles, internships, and freelance — remote or local.
           </div>
-          <a href="mailto:hello@alexmercer.dev" className="ap-cta-btn">
+          <a href="mailto:mtahayasin07@gmail.com" className="ap-cta-btn">
             Get in touch ↗
           </a>
         </div>
