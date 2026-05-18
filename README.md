@@ -2,7 +2,7 @@
 
 Personal portfolio of **Muhammad Taha Yasin** — MERN Stack & Next.js Developer.
 
-Live at: `your-deployment-url.vercel.app`
+Live at: `https://tahayasin-689w.vercel.app/`
 
 ---
 
