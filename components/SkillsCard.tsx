@@ -2,11 +2,11 @@
 
 const skills = [
   { name: "React.js",    level: 82, color: "#6eb5ff" },
-  { name: "Node.js",     level: 80, color: "#7ef5b0" },
-  { name: "MongoDB",     level: 78, color: "#7ef5b0" },
+  { name: "RAG",     level: 70, color: "#ffffff" },
+  { name: "MongoDB",     level: 80, color: "#7ef5b0" },
   { name: "Express.js",  level: 76, color: "#ffc96b" },
   { name: "Next.js",     level: 72, color: "#ffffff" },
-  { name: "TypeScript",  level: 65, color: "#6eb5ff" },
+  { name: "PostgreSQL",  level: 75, color: "#6eb5ff" },
 ];
 
 export default function SkillsCard({

@@ -4,6 +4,33 @@ import { useEffect } from "react";
 
 const projects = [
   {
+    id: "converse",
+    title: "Converse",
+    subtitle: "Real-time chat app with WebRTC calls & built-in RAG",
+    year: "2025",
+    role: "Full-Stack Developer",
+    color: "#c792ea",
+    colorDim: "rgba(199,146,234,0.08)",
+    colorBorder: "rgba(199,146,234,0.18)",
+    emoji: "💬",
+    desc: "A full-stack real-time chat application built with Next.js (App Router) and TypeScript, backed by PostgreSQL. Beyond messaging, calls and presence, it ships a self-built RAG feature — upload a PDF and ask questions about it, answered by a local LLM with responses streamed token-by-token over the existing socket connection.",
+    highlights: [
+      "Peer-to-peer audio & video calling via WebRTC",
+      "Real-time messaging, typing indicators & online presence via Socket.io",
+      "RAG document Q&A: PDF ingestion, chunking & vector retrieval with pgvector",
+      "Local embeddings & LLM generation via Ollama, streamed token-by-token",
+      "Typed Zustand stores for auth, conversations, messages & calls",
+      "PostgreSQL schema (Drizzle ORM) with window functions for fast conversation queries",
+    ],
+    tech: ["Next.js", "TypeScript", "PostgreSQL", "Zustand", "Socket.io", "WebRTC", "Ollama", "LangChain"],
+    liveLink: "https://chatapp-frontend-theta-eight.vercel.app/chats",
+    githubLink: "https://github.com/TahaY291/REPLACE_WITH_YOUR_REPO",
+    credentials: [
+      { role: "User 1", email: "user1@gmail.com", password: "User!1234" },
+      { role: "User 2", email: "user2@gmail.com", password: "User!1234" },
+    ],
+  },
+  {
     id: "prohealth",
     title: "ProHealth",
     subtitle: "Smart Telemedicine & Appointment Management System",
@@ -301,7 +328,7 @@ export default function ProjectsPage({ onClose }: { onClose: () => void }) {
           <div className="pp-eyebrow">Selected Work</div>
           <h1 className="pp-title">Projects</h1>
           <p className="pp-subtitle">
-            Three full-stack apps built from scratch — real features, real deployments, real code.
+            Four full-stack apps built from scratch — real features, real deployments, real code.
           </p>
         </header>
 

@@ -2,6 +2,12 @@
 
 const projects = [
   {
+    title: "Converse",
+    desc: "Real-time chat with WebRTC calls & built-in RAG",
+    techs: ["Next.js", "TypeScript", "PostgreSQL"],
+    color: "#c792ea",
+  },
+  {
     title: "Telemedicine Platform",
     desc: "Video consultations, prescriptions, medical records & payments",
     techs: ["React", "Node.js", "WebRTC", "MongoDB"],
@@ -12,12 +18,6 @@ const projects = [
     desc: "Masonry layout, follow system, post creation & downloads",
     techs: ["React", "Express", "MongoDB"],
     color: "#7ef5b0",
-  },
-  {
-    title: "Blog App",
-    desc: "Next.js blog with advanced follow system & aggregations",
-    techs: ["Next.js", "TypeScript", "MongoDB"],
-    color: "#ffc96b",
   },
 ];
 
@@ -137,8 +137,9 @@ export default function ProjectsCard({
           ))}
         </div>
         <div className="projects-footer">
-          <span className="projects-count">3 projects</span>
+          <span className="projects-count">4 projects</span>
           <span className="projects-cta">View all →</span>
+          {/* Count reflects the full total (4); this card lists the top 3, remaining ones are on the projects page. */}
         </div>
       </div>
     </>

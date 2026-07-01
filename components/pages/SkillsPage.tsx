@@ -6,11 +6,12 @@ import { useEffect, useRef } from "react";
 const skills = [
   { name: "React.js",     level: 82, color: "#6eb5ff", years: "1+ yr" },
   { name: "Node.js",      level: 80, color: "#7ef5b0", years: "1+ yr" },
-  { name: "MongoDB",      level: 78, color: "#7ef5b0", years: "1+ yr" },
+  { name: "MongoDB",      level: 80, color: "#7ef5b0", years: "1+ yr" },
+  { name: "PostgreSQL",   level: 75, color: "#ff8fcb", years: "1yr" },
+  { name: "RAG",      level: 70, color: "#ffffff", years: "< 1yr" },
   { name: "Express.js",   level: 76, color: "#ffc96b", years: "1+ yr" },
   { name: "Next.js",      level: 72, color: "#6eb5ff", years: "< 1 yr" },
   { name: "TypeScript",   level: 65, color: "#6eb5ff", years: "< 1 yr" },
-  { name: "PostgreSQL",   level: 42, color: "#ff8fcb", years: "learning" },
   { name: "Socket.io",    level: 60, color: "#ffc96b", years: "< 1 yr" },
 ];
 
@@ -25,7 +26,7 @@ const toolGroups = [
     label: "Backend",
     color: "#7ef5b0",
     colorDim: "rgba(126,245,176,0.07)",
-    tools: ["Node.js", "Express.js", "MongoDB", "Mongoose", "REST APIs", "JWT", "bcrypt", "Nodemailer", "Multer", "SSE"],
+    tools: ["Node.js", "Express.js", "MongoDB", "Mongoose","PostgreSQL","Drizzle","Neon", "REST APIs", "JWT", "bcrypt", "Nodemailer", "Multer", "SSE"],
   },
   {
     label: "State & Auth",
