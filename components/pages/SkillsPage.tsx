@@ -4,18 +4,33 @@ import { useEffect, useRef } from "react";
 // ── ONLY THESE 3 ARRAYS CHANGED — all CSS identical to original ──
 
 const skills = [
-  { name: "React.js",     level: 82, color: "#6eb5ff", years: "1+ yr" },
-  { name: "Node.js",      level: 80, color: "#7ef5b0", years: "1+ yr" },
-  { name: "MongoDB",      level: 80, color: "#7ef5b0", years: "1+ yr" },
-  { name: "PostgreSQL",   level: 75, color: "#ff8fcb", years: "1yr" },
-  { name: "RAG",      level: 70, color: "#ffffff", years: "< 1yr" },
-  { name: "Express.js",   level: 76, color: "#ffc96b", years: "1+ yr" },
-  { name: "Next.js",      level: 72, color: "#6eb5ff", years: "< 1 yr" },
-  { name: "TypeScript",   level: 65, color: "#6eb5ff", years: "< 1 yr" },
-  { name: "Socket.io",    level: 60, color: "#ffc96b", years: "< 1 yr" },
+  { name: "LangGraph", level: 70, color: "#ffc96b", years: "< 1 yr" },
+  { name: "FastAPI", level: 72, color: "#7ef5b0", years: "< 1 yr" },
+  { name: "Python", level: 75, color: "#6eb5ff", years: "< 1 yr" },
+  { name: "RAG", level: 70, color: "#ffffff", years: "< 1 yr" },
+  { name: "PostgreSQL", level: 75, color: "#ff8fcb", years: "1 yr" },
+  { name: "React.js", level: 82, color: "#6eb5ff", years: "1+ yr" },
+  { name: "Node.js", level: 80, color: "#7ef5b0", years: "1+ yr" },
+  { name: "MongoDB", level: 80, color: "#7ef5b0", years: "1+ yr" },
+  { name: "Express.js", level: 76, color: "#ffc96b", years: "1+ yr" },
+  { name: "Next.js", level: 72, color: "#6eb5ff", years: "< 1 yr" },
+  { name: "TypeScript", level: 65, color: "#6eb5ff", years: "< 1 yr" },
+  { name: "Socket.io", level: 60, color: "#ffc96b", years: "< 1 yr" },
 ];
 
 const toolGroups = [
+  {
+    label: "AI & Agents",
+    color: "#ffc96b",
+    colorDim: "rgba(255,201,107,0.07)",
+    tools: ["LangGraph", "LangChain", "Groq", "Ollama", "Tool Calling", "Checkpointing", "Tracing", "RAG", "Hybrid Search", "RRF", "Cohere Rerank", "Gemini Embeddings", "LLM-as-judge", "pgvector"],
+  },
+  {
+    label: "Backend",
+    color: "#7ef5b0",
+    colorDim: "rgba(126,245,176,0.07)",
+    tools: ["Python", "FastAPI", "Pydantic", "SQLAlchemy", "Alembic", "Redis", "BullMQ", "Node.js", "Express.js", "MongoDB", "Mongoose", "PostgreSQL", "Drizzle", "Neon", "REST APIs", "JWT", "bcrypt", "Nodemailer", "Multer", "SSE"],
+  },
   {
     label: "Frontend",
     color: "#6eb5ff",
@@ -23,26 +38,21 @@ const toolGroups = [
     tools: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Shadcn/ui", "Zod", "React Hook Form", "Axios"],
   },
   {
-    label: "Backend",
-    color: "#7ef5b0",
-    colorDim: "rgba(126,245,176,0.07)",
-    tools: ["Node.js", "Express.js", "MongoDB", "Mongoose","PostgreSQL","Drizzle","Neon", "REST APIs", "JWT", "bcrypt", "Nodemailer", "Multer", "SSE"],
-  },
-  {
     label: "State & Auth",
     color: "#ffc96b",
     colorDim: "rgba(255,201,107,0.07)",
-    tools: ["Zustand", "Redux", "JWT / Auth", "Cloudinary", "Stripe", "Socket.io", "PDFKit"],
+    tools: ["Zustand", "Redux", "JWT / Auth", "Redis Sessions", "Cloudinary", "Stripe", "Socket.io", "WebRTC", "PDFKit"],
   },
   {
     label: "Tools & DevOps",
     color: "#ff8fcb",
     colorDim: "rgba(255,143,203,0.07)",
-    tools: ["Git / GitHub", "Vercel", "Render", "Railway", "Postman", "VS Code", "ESLint / Prettier", "GitHub Actions"],
+    tools: ["Git / GitHub", "Docker", "Docker Compose", "pytest", "Postman", "Vercel", "Render", "Railway", "VS Code", "ESLint / Prettier", "GitHub Actions"],
   },
 ];
 
 const timeline = [
+  { year: "2026", title: "AI Agent Engineer", place: "Personal Projects", desc: "Built Repo Investigator: a LangGraph agent with tool calling, code-enforced step and token limits, PostgreSQL tracing and checkpoint-based resume." },
   { year: "2026", title: "Full-Stack Developer", place: "Self-taught", desc: "Built ProHealth telemedicine platform with WebRTC, SSE, Stripe, role-based auth and PDF prescriptions." },
   { year: "2025", title: "Next.js Developer", place: "Personal Projects", desc: "Built a blog platform with advanced aggregations, follow feed, and TypeScript throughout." },
   { year: "2024", title: "MERN Developer", place: "Personal Projects", desc: "Shipped Pinterest clone with masonry layout, follow system, and Cloudinary image management." },
@@ -353,6 +363,61 @@ export default function SkillsPage({ onClose }: { onClose: () => void }) {
           color: rgba(255,255,255,0.35);
           line-height: 1.6;
         }
+          /* ── Responsive ── */
+.sp-wrap { overflow-x: hidden; }
+.sp-body > div,
+.sp-agent-grid > div,
+.sp-header > div { min-width: 0; }
+.sp-tool-pills { min-width: 0; }
+
+/* Tablet: stack the skills and the tool groups */
+@media (max-width: 900px) {
+  .sp-nav { padding: 16px 24px; }
+
+  .sp-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 24px 28px;
+    gap: 20px;
+  }
+  .sp-subtitle { max-width: 100%; }
+  .sp-stat-row { gap: 24px; }
+  .sp-stat { text-align: left; }
+
+  .sp-divider { margin: 0 24px; }
+
+  .sp-body {
+    grid-template-columns: 1fr;   /* tools & ecosystem now sit under the skills */
+    padding: 32px 24px;
+    gap: 36px;
+  }
+
+  .sp-agent-wrap { padding: 28px 24px 36px; }
+  .sp-timeline-wrap { padding-left: 24px; padding-right: 24px; padding-bottom: 40px; }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+  .sp-nav { padding: 14px 16px; }
+  .sp-nav-label { font-size: 9px; letter-spacing: 0.12em; }
+  .sp-back { padding: 6px 12px; font-size: 10px; }
+
+  .sp-header { padding: 28px 16px 22px; }
+  .sp-title { font-size: clamp(30px, 9vw, 40px); }
+
+  .sp-divider { margin: 0 16px; }
+
+  .sp-body { padding: 24px 16px; gap: 28px; }
+  .sp-bars { gap: 14px; }
+  .sp-tool-group { padding: 14px; }
+
+  .sp-agent-wrap { padding: 24px 16px 28px; }
+  .sp-agent-grid { grid-template-columns: 1fr; }   /* one card per row */
+
+  .sp-timeline-wrap { padding-left: 16px; padding-right: 16px; padding-bottom: 32px; }
+  .sp-timeline { padding-left: 20px; gap: 24px; }
+  .sp-timeline-dot { left: -24.5px; }
+}
       `}</style>
 
       <div className="sp-wrap">

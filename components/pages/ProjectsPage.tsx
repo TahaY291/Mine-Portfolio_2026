@@ -1,8 +1,81 @@
 "use client";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const projects = [
+type Project = {
+  id: string;
+  title: string;
+  subtitle: string;
+  year: string;
+  role: string;
+  color: string;
+  colorDim: string;
+  colorBorder: string;
+  emoji: string;
+  desc: string;
+  highlights: string[];
+  tech: string[];
+  liveLink?: string;
+  githubLink: string;
+  credentials?: { role: string; email: string; password: string }[];
+  story?: {
+    flow: string[];
+    metrics: { val: string; label: string }[];
+    decisions: string[];
+    limits: string[];
+  };
+};
+
+const projects: Project[] = [
+  {
+    id: "repo-investigator",
+    title: "Repo Investigator",
+    subtitle: "AI agent that investigates GitHub repositories and writes a structured report",
+    year: "2026",
+    role: "AI / Backend Engineer",
+    color: "#ffc96b",
+    colorDim: "rgba(255,201,107,0.07)",
+    colorBorder: "rgba(255,201,107,0.16)",
+    emoji: "🕵️",
+    desc: "An agent that takes a public GitHub repo URL and an optional focus question (e.g. “How does authentication work?”), explores the code with tools, and reports whether the question was fully answered, partly answered, or not found. The project focuses on reliable agent execution rather than just prompting: tool execution, persistent state, tracing, hard limits and failure recovery.",
+    highlights: [
+      "LangGraph workflow: the model picks one tool per step, plain Python executes it",
+      "Repo, branch and file tree come from run state, so the model can't switch repositories",
+      "Step and token limits enforced in code, taking precedence over the model",
+      "PostgreSQL checkpoints plus an append-only trace table for every node",
+      "Atomic resume of interrupted runs, tested by killing the server twice mid-run",
+      "Classified failure handling with partial reports instead of crashes",
+    ],
+    tech: ["Python", "FastAPI", "LangGraph", "Groq", "PostgreSQL", "SQLAlchemy", "Alembic", "Redis", "Docker Compose"],
+    githubLink: "https://github.com/TahaY291/repo_analyzer_agent",
+    story: {
+      flow: [
+        "Create: API validates the URL, stores the run and returns 202 with a run ID",
+        "Fetch tree: repo metadata and file tree, no LLM call",
+        "Choose tool: the model selects exactly one tool call, it never executes it",
+        "Execute: plain Python calls the GitHub API (list, chunked read, in-file search)",
+        "Evaluate: the model turns the new file part into a finding and decides whether to continue",
+        "Enforce limits: step and token budgets in code override the model's decision",
+        "Report: built from findings, with files read and stop reason added by code",
+      ],
+      metrics: [
+        { val: "21K–32K", label: "input tokens per run" },
+        { val: "8–11", label: "tool rounds" },
+        { val: "4–5", label: "findings per run" },
+        { val: "2×", label: "killed & resumed mid-run" },
+      ],
+      decisions: [
+        "The LLM chooses, code executes, so tools can be tested independently.",
+        "Hard limits live outside the model, so a looping agent always stops.",
+        "Findings carry state, not raw files: summarized text becomes a short stub, keeping token use flat.",
+        "Trace and checkpoint are separate: one explains the run to a person, the other lets it continue.",
+      ],
+      limits: [
+        "A crash mid-node reruns that node, so its model call may be billed twice.",
+        "Runs use FastAPI background tasks; a durable queue and worker is the next step.",
+        "Public repositories only; free-tier model rate limits can slow runs.",
+      ],
+    },
+  },
   {
     id: "converse",
     title: "Converse",
@@ -13,18 +86,18 @@ const projects = [
     colorDim: "rgba(199,146,234,0.08)",
     colorBorder: "rgba(199,146,234,0.18)",
     emoji: "💬",
-    desc: "A full-stack real-time chat application built with Next.js (App Router) and TypeScript, backed by PostgreSQL. Beyond messaging, calls and presence, it ships a self-built RAG feature — upload a PDF and ask questions about it, answered by a local LLM with responses streamed token-by-token over the existing socket connection.",
+    desc: "A full-stack real-time chat application built with Next.js (App Router) and TypeScript, backed by PostgreSQL and Redis. Beyond messaging, calls and presence, it ships a hybrid-search RAG feature: upload a PDF and ask questions about it, with answers streamed token-by-token over the existing socket connection.",
     highlights: [
       "Peer-to-peer audio & video calling via WebRTC",
-      "Real-time messaging, typing indicators & online presence via Socket.io",
-      "RAG document Q&A: PDF ingestion, chunking & vector retrieval with pgvector",
-      "Local embeddings & LLM generation via Ollama, streamed token-by-token",
-      "Typed Zustand stores for auth, conversations, messages & calls",
+      "Real-time messaging, typing indicators & presence via Socket.io and Redis pub/sub",
+      "Hybrid RAG: pgvector + full-text search merged with Reciprocal Rank Fusion",
+      "Cohere reranking, query rewriting and prompt-injection sanitization of chunks",
+      "BullMQ queues, route caching and rate limiting on auth endpoints",
       "PostgreSQL schema (Drizzle ORM) with window functions for fast conversation queries",
     ],
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Zustand", "Socket.io", "WebRTC", "Ollama", "LangChain"],
+    tech: ["Next.js", "TypeScript", "PostgreSQL", "pgvector", "Redis", "BullMQ", "Zustand", "Socket.io", "WebRTC", "Groq", "Gemini", "Cohere", "LangChain"],
     liveLink: "https://chatapp-frontend-theta-eight.vercel.app/chats",
-    githubLink: "https://github.com/TahaY291/REPLACE_WITH_YOUR_REPO",
+    githubLink: "https://github.com/TahaY291/chatapp_backend",
     credentials: [
       { role: "User 1", email: "user1@gmail.com", password: "User!1234" },
       { role: "User 2", email: "user2@gmail.com", password: "User!1234" },
@@ -54,8 +127,8 @@ const projects = [
     githubLink: "https://github.com/TahaY291/telemedicine-frontend",
     credentials: [
       { role: "Patient", email: "patientmail12@gmail.com", password: "1234patient" },
-      { role: "Doctor",  email: "doctormail12@gmail.com",  password: "1234doctor"  },
-      { role: "Admin",   email: "adminmail@gmail.com",     password: "1234admin"   },
+      { role: "Doctor", email: "doctormail12@gmail.com", password: "1234doctor" },
+      { role: "Admin", email: "adminmail@gmail.com", password: "1234admin" },
     ],
   },
   {
@@ -269,7 +342,42 @@ export default function ProjectsPage({ onClose }: { onClose: () => void }) {
           color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.03);
         }
 
-        /* ── Test credentials block — new styles only ── */
+        /* ── Story block (flagship project) ── */
+        .pp-story {
+          margin: 0 28px 20px;
+          padding: 18px;
+          border-radius: 14px;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.06);
+        }
+        .pp-story-metrics {
+          display: grid; grid-template-columns: repeat(4, 1fr);
+          gap: 12px; margin-bottom: 20px;
+        }
+        .pp-metric {
+          padding: 12px 14px; border-radius: 12px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.05);
+          min-width: 0;
+        }
+        .pp-metric-val { font-size: 20px; font-weight: 800; letter-spacing: -0.03em; }
+        .pp-metric-label {
+          font-family: 'DM Mono', monospace; font-size: 9.5px;
+          color: rgba(255,255,255,0.3); margin-top: 2px;
+        }
+        .pp-story-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .pp-flow { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+        .pp-flow-item {
+          display: flex; align-items: flex-start; gap: 10px;
+          font-size: 12px; line-height: 1.5; color: rgba(255,255,255,0.42);
+        }
+        .pp-flow-num {
+          width: 18px; height: 18px; border-radius: 50%; border: 1px solid;
+          display: flex; align-items: center; justify-content: center;
+          font-family: 'DM Mono', monospace; font-size: 9px; flex-shrink: 0; margin-top: 1px;
+        }
+
+        /* ── Test credentials block ── */
         .pp-creds-wrap {
           margin: 0 28px 20px;
           padding: 14px 16px;
@@ -316,6 +424,46 @@ export default function ProjectsPage({ onClose }: { onClose: () => void }) {
           cursor: pointer; transition: color 0.15s, border-color 0.15s;
         }
         .pp-copy-btn:hover { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); }
+
+        /* ── Responsive ── */
+        .pp-wrap { overflow-x: hidden; }
+        .pp-project-body > *, .pp-story-cols > * { min-width: 0; }
+        .pp-cred-val { word-break: break-all; }
+
+        @media (max-width: 900px) {
+          .pp-nav { padding: 16px 24px; }
+          .pp-header { padding: 40px 24px 28px; }
+          .pp-subtitle { max-width: 100%; }
+          .pp-divider { margin: 0 24px; }
+          .pp-projects { padding: 32px 24px 0; }
+
+          .pp-project-top { flex-wrap: wrap; padding: 22px 22px 0; }
+          .pp-btn-group { width: 100%; padding-left: 64px; }
+
+          .pp-project-body { grid-template-columns: 1fr; padding: 16px 22px 20px; gap: 18px; }
+          .pp-story { margin: 0 22px 18px; }
+          .pp-story-metrics { grid-template-columns: repeat(2, 1fr); }
+          .pp-story-cols { grid-template-columns: 1fr; gap: 20px; }
+          .pp-creds-wrap { margin: 0 22px 18px; }
+        }
+
+        @media (max-width: 600px) {
+          .pp-nav { padding: 14px 16px; }
+          .pp-nav-label { font-size: 9px; letter-spacing: 0.12em; }
+          .pp-back { padding: 6px 12px; font-size: 10px; }
+          .pp-header { padding: 28px 16px 22px; }
+          .pp-title { font-size: clamp(30px, 9vw, 40px); }
+          .pp-divider { margin: 0 16px; }
+          .pp-projects { padding: 24px 16px 0; gap: 20px; }
+
+          .pp-project-top { padding: 18px 16px 0; gap: 14px; }
+          .pp-btn-group { padding-left: 0; }
+          .pp-project-body { padding: 14px 16px 18px; }
+          .pp-story { margin: 0 16px 16px; padding: 14px; }
+          .pp-creds-wrap { margin: 0 16px 16px; }
+          .pp-cred-row { gap: 8px; }
+          .pp-cred-sep { display: none; }
+        }
       `}</style>
 
       <div className="pp-wrap">
@@ -328,7 +476,7 @@ export default function ProjectsPage({ onClose }: { onClose: () => void }) {
           <div className="pp-eyebrow">Selected Work</div>
           <h1 className="pp-title">Projects</h1>
           <p className="pp-subtitle">
-            Four full-stack apps built from scratch — real features, real deployments, real code.
+            Five projects built from scratch, from an AI agent with resumable runs to real-time platforms. Real features, real deployments, real code.
           </p>
         </header>
 
@@ -351,10 +499,12 @@ export default function ProjectsPage({ onClose }: { onClose: () => void }) {
                   <div className="pp-project-subtitle">{p.subtitle}</div>
                 </div>
                 <div className="pp-btn-group">
-                  <a href={p.liveLink} target="_blank" rel="noreferrer" className="pp-link-btn"
-                    style={{ color: p.color, borderColor: p.colorBorder, background: p.colorDim }}>
-                    Live ↗
-                  </a>
+                  {p.liveLink && (
+                    <a href={p.liveLink} target="_blank" rel="noreferrer" className="pp-link-btn"
+                      style={{ color: p.color, borderColor: p.colorBorder, background: p.colorDim }}>
+                      Live ↗
+                    </a>
+                  )}
                   <a href={p.githubLink} target="_blank" rel="noreferrer" className="pp-gh-btn">
                     GitHub
                   </a>
@@ -382,28 +532,79 @@ export default function ProjectsPage({ onClose }: { onClose: () => void }) {
                 </div>
               </div>
 
-              {/* ── Test credentials ── */}
-              <div className="pp-creds-wrap">
-                <div className="pp-creds-label">🔑 Test Credentials</div>
-                <div className="pp-creds-rows">
-                  {p.credentials.map((c) => (
-                    <div key={c.role} className="pp-cred-row">
-                      <span className="pp-cred-role">{c.role}</span>
-                      <div className="pp-cred-field">
-                        <span className="pp-cred-key">email</span>
-                        <span className="pp-cred-val">{c.email}</span>
-                        <CopyButton text={c.email} />
+              {/* ── Story (flagship project only) ── */}
+              {p.story && (
+                <div className="pp-story">
+                  <div className="pp-story-metrics">
+                    {p.story.metrics.map((m) => (
+                      <div key={m.label} className="pp-metric">
+                        <div className="pp-metric-val" style={{ color: p.color }}>{m.val}</div>
+                        <div className="pp-metric-label">{m.label}</div>
                       </div>
-                      <span className="pp-cred-sep">·</span>
-                      <div className="pp-cred-field">
-                        <span className="pp-cred-key">pass</span>
-                        <span className="pp-cred-val">{c.password}</span>
-                        <CopyButton text={c.password} />
+                    ))}
+                  </div>
+
+                  <div className="pp-story-cols">
+                    <div>
+                      <div className="pp-highlights-label">How an investigation works</div>
+                      <ol className="pp-flow">
+                        {p.story.flow.map((s, i) => (
+                          <li key={s} className="pp-flow-item">
+                            <span className="pp-flow-num" style={{ color: p.color, borderColor: p.colorBorder }}>{i + 1}</span>
+                            <span>{s}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+
+                    <div>
+                      <div className="pp-highlights-label">Key decisions</div>
+                      <div className="pp-highlights">
+                        {p.story.decisions.map((d) => (
+                          <div key={d} className="pp-highlight-row">
+                            <span className="pp-highlight-dot" style={{ background: p.color }} />
+                            {d}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="pp-highlights-label">Known limitations</div>
+                      <div className="pp-highlights" style={{ marginBottom: 0 }}>
+                        {p.story.limits.map((l) => (
+                          <div key={l} className="pp-highlight-row">
+                            <span className="pp-highlight-dot" style={{ background: "rgba(255,255,255,0.25)" }} />
+                            {l}
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {/* ── Test credentials ── */}
+              {p.credentials && p.credentials.length > 0 && (
+                <div className="pp-creds-wrap">
+                  <div className="pp-creds-label">🔑 Test Credentials</div>
+                  <div className="pp-creds-rows">
+                    {p.credentials.map((c) => (
+                      <div key={c.role} className="pp-cred-row">
+                        <span className="pp-cred-role">{c.role}</span>
+                        <div className="pp-cred-field">
+                          <span className="pp-cred-key">email</span>
+                          <span className="pp-cred-val">{c.email}</span>
+                          <CopyButton text={c.email} />
+                        </div>
+                        <span className="pp-cred-sep">·</span>
+                        <div className="pp-cred-field">
+                          <span className="pp-cred-key">pass</span>
+                          <span className="pp-cred-val">{c.password}</span>
+                          <CopyButton text={c.password} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
             </div>
           ))}

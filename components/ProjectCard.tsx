@@ -2,6 +2,12 @@
 
 const projects = [
   {
+    title: "Repo Investigator",
+    desc: "AI agent that investigates GitHub repos, with resumable runs",
+    techs: ["Python", "FastAPI", "LangGraph"],
+    color: "#ffc96b",
+  },
+  {
     title: "Converse",
     desc: "Real-time chat with WebRTC calls & built-in RAG",
     techs: ["Next.js", "TypeScript", "PostgreSQL"],
@@ -12,12 +18,6 @@ const projects = [
     desc: "Video consultations, prescriptions, medical records & payments",
     techs: ["React", "Node.js", "WebRTC", "MongoDB"],
     color: "#6eb5ff",
-  },
-  {
-    title: "Pinterest Clone",
-    desc: "Masonry layout, follow system, post creation & downloads",
-    techs: ["React", "Express", "MongoDB"],
-    color: "#7ef5b0",
   },
 ];
 

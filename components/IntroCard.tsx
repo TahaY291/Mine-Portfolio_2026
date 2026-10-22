@@ -2,10 +2,10 @@
 import { useState, useEffect } from "react";
 
 const roles = [
-  "MERN Stack Developer",
-  "Next.js Developer",
+  "AI Agent Engineer",
   "Full-Stack Developer",
-  "TypeScript Enthusiast",
+  "Python & FastAPI Developer",
+  "Next.js Developer",
 ];
 
 const socials = [
@@ -250,8 +250,8 @@ export default function IntroCard() {
           </div>
 
           <p className="intro-bio">
-            I build complete, production-ready web apps — real-time video platforms,
-            marketplaces, and content systems. Clean code and features that actually work.
+            I build reliable AI agents and full-stack apps: LangGraph agents with
+            tracing and resume, real-time platforms, and clean backends that actually work.
           </p>
 
           <div className="intro-socials">

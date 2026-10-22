@@ -95,8 +95,8 @@ export default function AboutCard({ onClick }: { onClick: () => void }) {
           <div className="about-label">Who I Am</div>
           <h3 className="about-title">About</h3>
           <p className="about-desc">
-            Building production-ready apps with real features. Obsessed with clean code and things that actually work.
-          </p>
+  Building reliable AI agents and production-ready apps. Obsessed with clean code and things that actually work.
+</p>
         </div>
 
         <div className="about-middle">
@@ -104,7 +104,7 @@ export default function AboutCard({ onClick }: { onClick: () => void }) {
           <div className="about-meta-row">
             {[
               "Based in Pakistan",
-              "MERN · Next.js · TypeScript",
+              "Python · LangGraph · Next.js",
               "Open to remote & local",
             ].map((t) => (
               <div key={t} className="about-meta-item">

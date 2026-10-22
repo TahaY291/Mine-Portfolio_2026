@@ -5,21 +5,21 @@ const values = [
   {
     emoji: "🔥",
     title: "Build to learn",
-    desc: "Every project teaches me something real. I built a full telemedicine platform just to understand WebRTC.",
+    desc: "Every project teaches me something real. I built a telemedicine platform to understand WebRTC, and an AI agent to understand reliable tool execution.",
     color: "#6eb5ff",
     colorDim: "rgba(110,181,255,0.08)",
   },
   {
     emoji: "⚡",
     title: "Ship real things",
-    desc: "No tutorial projects. Every app I build has real features — auth, payments, real-time, PDFs.",
+    desc: "No tutorial projects. Every app I build has real features: auth, payments, real-time, PDFs, tracing and resumable runs.",
     color: "#ffc96b",
     colorDim: "rgba(255,201,107,0.08)",
   },
   {
     emoji: "🌱",
     title: "Always growing",
-    desc: "Started with MERN, added Next.js and TypeScript, now learning PostgreSQL. Never stopping.",
+    desc: "Started with MERN, added Next.js and TypeScript, PostgreSQL, and now AI agents with Python, FastAPI and LangGraph. Never stopping.",
     color: "#7ef5b0",
     colorDim: "rgba(126,245,176,0.07)",
   },
@@ -349,6 +349,42 @@ export default function AboutPage({ onClose }: { onClose: (e: React.MouseEvent) 
           opacity: 0.88;
           transform: translateY(-1px);
         }
+
+        /* ── Responsive ── */
+        .ap-wrap { overflow-x: hidden; }
+        .ap-hero-content, .ap-two-col > div { min-width: 0; }
+        .ap-fact-value { word-break: break-word; }
+
+        @media (max-width: 900px) {
+          .ap-nav { padding: 16px 24px; }
+          .ap-hero { padding: 40px 24px 36px; gap: 28px; }
+          .ap-divider { margin: 0 24px; }
+          .ap-section { padding: 32px 24px 0; }
+          .ap-two-col { grid-template-columns: 1fr; padding: 32px 24px 0; gap: 32px; }
+          .ap-cta-strip { margin: 32px 24px 0; }
+        }
+
+        @media (max-width: 600px) {
+          .ap-nav { padding: 14px 16px; }
+          .ap-nav-label { font-size: 9px; letter-spacing: 0.12em; }
+          .ap-back { padding: 6px 12px; font-size: 10px; }
+
+          .ap-hero { flex-direction: column; padding: 28px 16px 28px; gap: 20px; }
+          .ap-avatar-wrap { display: flex; align-items: center; gap: 14px; }
+          .ap-avatar { width: 72px; height: 72px; font-size: 26px; border-radius: 20px; margin-bottom: 0; }
+          .ap-bio { max-width: 100%; }
+
+          .ap-divider { margin: 0 16px; }
+          .ap-section { padding: 28px 16px 0; }
+          .ap-values { grid-template-columns: 1fr; }
+          .ap-two-col { padding: 28px 16px 0; }
+
+          .ap-fact-row { gap: 12px; }
+          .ap-cta-strip {
+            margin: 28px 16px 0; padding: 20px;
+            flex-direction: column; align-items: flex-start;
+          }
+        }
       `}</style>
 
       <div className="ap-wrap">
@@ -369,10 +405,10 @@ export default function AboutPage({ onClose }: { onClose: (e: React.MouseEvent) 
             <div className="ap-eyebrow">Who I Am</div>
             <h1 className="ap-title">About Taha</h1>
             <p className="ap-bio">
-              I'm a <strong>self-taught MERN stack developer</strong> based in Pakistan, building complete production-ready web apps with <strong>real features</strong> that actually work.
+              I'm a <strong>full-stack and AI agent engineer</strong> based in Pakistan, building <strong>reliable LLM applications</strong> and production-ready web apps with real features that actually work.
             </p>
             <p className="ap-bio" style={{ marginTop: -8 }}>
-              From <strong>WebRTC video consultations</strong> to Pinterest-style apps and Next.js blogs — I build things end to end. Open to <strong>remote &amp; local opportunities</strong>.
+              From a <strong>LangGraph agent with tracing and resumable runs</strong> to WebRTC video platforms and hybrid-search RAG, I build things end to end. Open to <strong>remote &amp; local opportunities</strong>.
             </p>
           </div>
         </div>
@@ -416,7 +452,7 @@ export default function AboutPage({ onClose }: { onClose: (e: React.MouseEvent) 
 
         <div className="ap-cta-strip">
           <div className="ap-cta-text">
-            <strong>Let's build something together.</strong> Open to junior/mid roles, internships, and freelance — remote or local.
+            <strong>Let's build something together.</strong> Open to junior/mid roles in AI agents and full-stack, internships, and freelance, remote or local.
           </div>
           <a href="mailto:mtahayasin07@gmail.com" className="ap-cta-btn">
             Get in touch ↗
